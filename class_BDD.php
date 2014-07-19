@@ -1,12 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: juanes
- * Date: 19/07/14
- * Time: 16:55
- */
-
-namespace no_namespace;
+ * FAIT TOUT PLANTER, COMMENTÉ EN ATTENDANT DE TROUVER LA SOLUTION
+ * namespace GestBdd;
+*/
 
 /**
  * Class BDD
@@ -30,18 +26,32 @@ class BDD
     //PRÉPARE LA CONNEXION À LA BASE DE DONNÉES
     public function __construct()
     {
-        $this->login = "root";
-        $this->mdp = "";
-        $this->StrConn = 'mysql:host=localhost;dbname=freeh_utopia';
-
-        try
-        {
-            $this->pdo = new PDO($this->StrConn, $this->login, $this->mdp);
-            //LES ERREURS GÉNÈRERONT DES EXCEPTIONS INTERCEPTABLES AVEC TRY/CATCH
-            $this->pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+        if(func_num_args() == 3){
+            /**
+             * INFOS DE CONNEXION À LA BDD LOCAL
+            $this->DataConnection("root", "", "mysql:host=localhost;dbname=freeh_utopia");
+            */
+            $this->DataConnection(func_get_arg(0), func_get_arg(1), func_get_arg(2));
         }
-        catch (Exception $e)
-        {
+    }
+
+    /**
+     * @param $log
+     * @param $pwd
+     * @param $strconn
+     */
+    public function DataConnection($log, $pwd, $strconn)
+    {
+        try {
+            $this->login = $log;
+            $this->mdp = $pwd;
+            $this->StrConn = $strconn;
+            $this->pdo = new PDO($this->StrConn, $this->login, $this->mdp);
+
+            //LES ERREURS GÉNÈRERONT DES EXCEPTIONS INTERCEPTABLES AVEC TRY/CATCH
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
+        catch (Exception $e) {
             echo "<p>Erreur : Impossible de se connecter à la base de données.<br />".($this->debugMode==true ? "chaîne de connexion : ".$this->StrConn."<br />login : ".$this->login."<br />mot de passe : ".$this->mdp."<br />" : "").$e->getMessage()."</p>";
         }
     }
