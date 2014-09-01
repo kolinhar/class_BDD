@@ -24,11 +24,9 @@
         $oBDD->DataConnection("root", "", "mysql:host=localhost;dbname=freeh_utopia");
         $oBDD->RqtSelect("select * from feuilles order by id_perso asc", []);
         $oBDD->NextLine();
-        ?>
 
-<?php
-echo "1er ID trouvé : " . $oBDD->Valeur("id_perso");
-?>
+        echo "1er ID trouvé : " . $oBDD->Valeur("id_perso");
+        ?>
         </fieldset>
         <fieldset>
         <?php
@@ -36,10 +34,9 @@ echo "1er ID trouvé : " . $oBDD->Valeur("id_perso");
         $oBDD2 = new BDD("root", "", "mysql:host=localhost;dbname=freeh_utopia");
         $oBDD2->RqtSelect("select * from feuilles order by id_perso asc", []);
         $oBDD2->NextLine();
+
+        echo "1er ID trouvé : " . $oBDD2->Valeur("id_perso");
         ?>
-<?php
-echo "1er ID trouvé : " . $oBDD2->Valeur("id_perso");
-?>
         </fieldset>
     </body>
 </html>
